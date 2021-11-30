@@ -185,6 +185,14 @@ mysql> explain select count(*) from user where birthdate < "1990-05-05";
 +----+-------------+-------+------------+------+---------------+------+---------+------+---------+----------+-------------+
 1 row in set, 1 warning (0.00 sec)
 
+mysql> select count(*) from user where birthdate < "1990-05-05";
++----------+
+| count(*) |
++----------+
+|  3308886 |
++----------+
+1 row in set (4.47 sec)
+
 ```
 
 #### BTREE
@@ -197,6 +205,14 @@ mysql> explain select count(*) from user where birthdate < "1990-05-05";
 |  1 | SIMPLE      | user  | NULL       | range | btree_index   | btree_index | 3       | NULL | 3749252 |   100.00 | Using where; Using index |
 +----+-------------+-------+------------+-------+---------------+-------------+---------+------+---------+----------+--------------------------+
 1 row in set, 1 warning (0.00 sec)
+
+mysql> select count(*) from user where birthdate < "1990-05-05";
++----------+
+| count(*) |
++----------+
+|  3308886 |
++----------+
+1 row in set (0.80 sec)
 ```
 
 #### HASH
@@ -209,6 +225,14 @@ mysql> explain select count(*) from user where birthdate < "1990-05-05";
 |  1 | SIMPLE      | user  | NULL       | range | bd_index_hash | bd_index_hash | 3       | NULL | 3753856 |   100.00 | Using where; Using index |
 +----+-------------+-------+------------+-------+---------------+---------------+---------+------+---------+----------+--------------------------+
 1 row in set, 2 warnings (0.00 sec)
+
+mysql> select count(*) from user where birthdate < "1990-05-05";
++----------+
+| count(*) |
++----------+
+|  3308886 |
++----------+
+1 row in set (0.63 sec)
 ```
 
 
