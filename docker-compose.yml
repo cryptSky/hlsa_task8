@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+
+  server:
+    build: ./server
+    container_name: 'server'
+    expose:
+      - "8000"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./server:/server
+    env_file: 
+      - .env
+    restart: always
+    links:
+      - db
+
+  db:
+    image: mysql:5.7.22
+    container_name: db
+    ports:
+      - "3309:3309"
+    volumes:
+      - ./mysqlconf/my.conf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./db/data:/var/lib/mysql
+    restart: always
+    environment:
+      - MYSQL_USER=dbuser
+      - MYSQL_PASSWORD=dbpassword
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=db
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+
+volumes:
+  app:
+  node_modules:
+
