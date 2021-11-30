@@ -6,11 +6,10 @@
 ## Steps to run
 
 1. `docker-compose up --build` 
-2. Data initiallization: connect to server container and run `python generator.py`
+2. Data initiallization: connect to server container `docker exec -it server /bin/bash` and run `python generator.py`
 
-### Results
+## Results
 
-You can check the implementation of probabilistic cache flushing [here](server/rest/user.py)
 
 #### No index and innodb_flush_log_at_trx_commit = 1
 `siege -c100 -t60S --content-type "application/json" 'http://localhost:8000/users POST {}'`
@@ -173,9 +172,9 @@ Longest transaction:            0.77
 Shortest transaction:           0.17
 ```
 
-# EXPLAIN
+### EXPLAIN
 
-### No index 
+#### No index 
 
 ```console
 mysql> explain select count(*) from user where birthdate < "1990-05-05";
@@ -188,7 +187,7 @@ mysql> explain select count(*) from user where birthdate < "1990-05-05";
 
 ```
 
-### BTREE
+#### BTREE
 
 ```console
 mysql> explain select count(*) from user where birthdate < "1990-05-05";
@@ -200,7 +199,7 @@ mysql> explain select count(*) from user where birthdate < "1990-05-05";
 1 row in set, 1 warning (0.00 sec)
 ```
 
-### HASH
+#### HASH
 
 ```console
 mysql> explain select count(*) from user where birthdate < "1990-05-05";
